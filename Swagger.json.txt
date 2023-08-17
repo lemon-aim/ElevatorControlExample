@@ -1,0 +1,167 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ElevatorControlExample",
+    "version": "1.0"
+  },
+  servers:
+  [url: http://localhost:8080]
+  "paths": {
+    "/api/Elevator/CallElevator": {
+      "post": {
+        "tags": [
+          "Elevator"
+        ],
+        "operationId": "CallElevator",
+        "parameters": [
+          {
+            "name": "floor",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Elevator/SelectFloor": {
+      "post": {
+        "tags": [
+          "Elevator"
+        ],
+        "operationId": "SelectFloor",
+        "parameters": [
+          {
+            "name": "floor",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Elevator/SelectedFloors": {
+      "get": {
+        "tags": [
+          "Elevator"
+        ],
+        "operationId": "SelectedFloors",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Elevator/NextFloor": {
+      "get": {
+        "tags": [
+          "Elevator"
+        ],
+        "operationId": "NextFloor",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}
