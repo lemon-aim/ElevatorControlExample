@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Text;
+using System.Text.Json;
 
 namespace ElevatorControlExample.Controllers
 {
@@ -9,51 +11,40 @@ namespace ElevatorControlExample.Controllers
     [ApiController]
     public class ElevatorController : ControllerBase
     {
-        private readonly ILogger<ElevatorController> _logger;
         private IElevatorService _elevatorService;
 
-        public ElevatorController(IElevatorService elevatorService, ILogger<ElevatorController> logger)
+        public ElevatorController(IElevatorService elevatorService)
         {
             _elevatorService = elevatorService;
-            _logger = logger;
         }
 
     
         [HttpPost(Name = "CallElevator")]
-        public HttpResponseMessage CallElevator(int floor)
+        public ActionResult<bool> CallElevator(int floor)
         {
             var floorRange = _elevatorService.GetFloorRange();
             if (floor > floorRange.max || floor < floorRange.min)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new StringContent("Elevator does not service this floor."),
-                    StatusCode = HttpStatusCode.UnprocessableEntity
-                };
+                return UnprocessableEntity("Elevator does not service this floor.");
             }
-            return new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK
-            };
+            return true;
         }
 
         [HttpPost(Name = "SelectFloor")]
-        public HttpResponseMessage SelectFloor(int floor)
+        public ActionResult<bool> SelectFloor(int floor)
         {
             var floorRange = _elevatorService.GetFloorRange();
             if (floor > floorRange.max || floor < floorRange.min)
             {
-                return new HttpResponseMessage
-                {
-                    Content = new StringContent("Elevator does not service this floor."),
-                    StatusCode = HttpStatusCode.UnprocessableEntity
-                };
+                return UnprocessableEntity("Elevator does not service this floor.");
             }
-            return new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK
-            };
+            return true;
         }
 
+        [HttpGet(Name = "SelectedFloors")]
+        public ActionResult<IEnumerable<int>> SelectedFloors()
+        {
+            return _elevatorService.FloorsSelected().ToList();
+        }
     }
 }
