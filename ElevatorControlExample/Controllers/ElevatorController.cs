@@ -5,7 +5,7 @@ using System.Net;
 
 namespace ElevatorControlExample.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ElevatorController : ControllerBase
     {
@@ -18,8 +18,9 @@ namespace ElevatorControlExample.Controllers
             _logger = logger;
         }
 
+    
         [HttpPost(Name = "CallElevator")]
-        public HttpResponseMessage Post(int floor)
+        public HttpResponseMessage CallElevator(int floor)
         {
             var floorRange = _elevatorService.GetFloorRange();
             if (floor > floorRange.max || floor < floorRange.min)
@@ -35,5 +36,24 @@ namespace ElevatorControlExample.Controllers
                 StatusCode = HttpStatusCode.OK
             };
         }
+
+        [HttpPost(Name = "SelectFloor")]
+        public HttpResponseMessage SelectFloor(int floor)
+        {
+            var floorRange = _elevatorService.GetFloorRange();
+            if (floor > floorRange.max || floor < floorRange.min)
+            {
+                return new HttpResponseMessage
+                {
+                    Content = new StringContent("Elevator does not service this floor."),
+                    StatusCode = HttpStatusCode.UnprocessableEntity
+                };
+            }
+            return new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK
+            };
+        }
+
     }
 }
