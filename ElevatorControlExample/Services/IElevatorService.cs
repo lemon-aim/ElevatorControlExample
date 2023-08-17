@@ -6,5 +6,6 @@
         Boolean CallToFloor(int floor);
         Boolean UserFloorSelect(int floor);
         IEnumerable<int> FloorsSelected();
+        int NextFloor();
     }
 }

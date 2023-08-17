@@ -46,5 +46,11 @@ namespace ElevatorControlExample.Controllers
         {
             return _elevatorService.FloorsSelected().ToList();
         }
+
+        [HttpGet(Name = "NextFloor")]
+        public ActionResult<int> NextFloor()
+        {
+            return _elevatorService.NextFloor();
+        }
     }
 }

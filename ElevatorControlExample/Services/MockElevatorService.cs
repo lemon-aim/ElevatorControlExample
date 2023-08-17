@@ -56,5 +56,15 @@
             }
             return selectedFloors;
         }
+
+        /// <summary>
+        /// Returns the next floor the elevator should go to
+        /// </summary>
+        /// <returns></returns>
+        public int NextFloor()
+        {
+            var random = new Random();
+            return random.Next(10) + 1;
+        }
     }
 }
